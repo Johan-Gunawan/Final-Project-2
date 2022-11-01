@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const PhotoController = require('../controllers/PhotoController');
-const { authenticate } = require('../middleware/Authentication');
+const { authenticate } = require('../Middleware/Authentication');
 
 router.post('/', authenticate ,PhotoController.add);
 router.get('/', authenticate ,PhotoController.getAll);

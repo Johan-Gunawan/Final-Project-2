@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { authenticate } = require('../middleware/Authentication');
+const { authenticate } = require('../Middleware/Authentication');
 const CommentController = require('../controllers/CommentController');
 
 router.post('/', authenticate, CommentController.add);
