@@ -12,6 +12,9 @@ if(process.env.NODE_ENV == 'development'){
 app.use(cors())
 app.use(json())
 
+app.use('/',(req,res) =>{
+    res.send('<h1>Welcome to MyGram</h1>')
+});
 app.use('/users',UserRouter);
 app.use('/photos',PhotoRouter);
 app.use('/socialmedias',SocialMediaRouter);
