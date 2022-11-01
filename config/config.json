@@ -14,10 +14,6 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "jsvbvypialalyd",
-    "password": "9fcd2b7cefbffa87a87edddca5ac6135fe120986bd18785484f36cbb9337a062",
-    "database": "dfti1hhuapp95g",
-    "host": "ec2-54-160-200-167.compute-1.amazonaws.com",
-    "dialect": "postgres"
+    "use_env_variable": "postgres://jsvbvypialalyd:9fcd2b7cefbffa87a87edddca5ac6135fe120986bd18785484f36cbb9337a062@ec2-54-160-200-167.compute-1.amazonaws.com:5432/dfti1hhuapp95g"
   }
 }
