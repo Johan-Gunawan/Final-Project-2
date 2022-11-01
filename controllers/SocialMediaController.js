@@ -20,7 +20,14 @@ class SocialMediaController{
             });
             
         } catch (error) {
-            res.status(500).send(response(error,error.message));
+            if(error.name == 'SequelizeUniqueConstraintError'){
+                res.status(400).send(response({},error.message));
+            }
+            else if(error.name == 'SequelizeValidationError') {
+                res.status(400).send(response({},error['errors'][0].message));
+            }else{
+                res.status(500).send(response(error,error.message));
+            }
         }
     }
 
@@ -56,7 +63,14 @@ class SocialMediaController{
             res.send({ social_media: newSocialMedia });
             
         } catch (error) {
-            res.status(500).send(response(error,error.message));
+            if(error.name == 'SequelizeUniqueConstraintError'){
+                res.status(400).send(response({},error.message));
+            }
+            else if(error.name == 'SequelizeValidationError') {
+                res.status(400).send(response({},error['errors'][0].message));
+            }else{
+                res.status(500).send(response(error,error.message));
+            }
         }
     }
 
@@ -81,7 +95,14 @@ class SocialMediaController{
                 social_medias: data
             });
         } catch (error) {
-            res.status(500).send(response(error,error.message));
+            if(error.name == 'SequelizeUniqueConstraintError'){
+                res.status(400).send(response({},error.message));
+            }
+            else if(error.name == 'SequelizeValidationError') {
+                res.status(400).send(response({},error['errors'][0].message));
+            }else{
+                res.status(500).send(response(error,error.message));
+            }
         }
     }
 
@@ -109,7 +130,14 @@ class SocialMediaController{
 
             res.send({ msg: "Your social media has been successfully deleted"});
         } catch (error) {
-            res.status(500).send(response(error,error.message));
+            if(error.name == 'SequelizeUniqueConstraintError'){
+                res.status(400).send(response({},error.message));
+            }
+            else if(error.name == 'SequelizeValidationError') {
+                res.status(400).send(response({},error['errors'][0].message));
+            }else{
+                res.status(500).send(response(error,error.message));
+            }
         }
     }
 }

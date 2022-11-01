@@ -22,7 +22,14 @@ class UserController{
 
             return res.send({token});
         } catch (error) {
-            return res.status(500).send(response(error,error.message));
+            if(error.name == 'SequelizeUniqueConstraintError'){
+                res.status(400).send(response(error,error.message));
+            }
+            else if(error.name == 'SequelizeValidationError') {
+                res.status(400).send(response(error,error['errors'][0].message));
+            }else{
+                res.status(500).send(response(error,error.message));
+            }
         }
     }
 
@@ -53,13 +60,29 @@ class UserController{
                 }
             });
         } catch (error) {
-            res.status(500).send(response(error,error.message));
+            if(error.name == 'SequelizeUniqueConstraintError'){
+                res.status(400).send(response(error,error.message));
+            }
+            else if(error.name == 'SequelizeValidationError') {
+                res.status(400).send(response(error,error['errors'][0].message));
+            }else{
+                res.status(500).send(response(error,error.message));
+            }
         }
     }
 
     static async delete(req, res) {
         try {
             const userId = req.params.userId;
+
+            if(userId != req.userId){
+                return res.status(401).send(response([],"You cannot delete other user"));
+            }
+
+            const user = await User.findByPk(userId);
+            if(!user){
+                return res.status(404).send(response([],"User not found"));
+            }
 
             await User.destroy({
                 where: {
@@ -73,7 +96,14 @@ class UserController{
 
 
         } catch (error) {
-            res.status(500).send(response(error,error.message));
+            if(error.name == 'SequelizeUniqueConstraintError'){
+                res.status(400).send(response(error,error.message));
+            }
+            else if(error.name == 'SequelizeValidationError') {
+                res.status(400).send(response(error,error['errors'][0].message));
+            }else{
+                res.status(500).send(response(error,error.message));
+            }
         }
     }
 
@@ -89,6 +119,11 @@ class UserController{
                 age,
                 phone_number
             };
+
+            const user = await User.findByPk(userId);
+            if(!user){
+                return res.status(404).send(response([],"User not found"));
+            }
 
             const data = await User.update(dataUpdate,{
                 where: {
@@ -113,7 +148,15 @@ class UserController{
             
 
         } catch (error) {
-            res.status(500).send(response(error,error.message));
+            console.log(error);
+            if(error.name == 'SequelizeUniqueConstraintError'){
+                res.status(400).send(response(error,error.message));
+            }
+            else if(error.name == 'SequelizeValidationError') {
+                res.status(400).send(response(error,error['errors'][0].message));
+            }else{
+                res.status(500).send(response(error,error.message));
+            }
         }
     }
 }

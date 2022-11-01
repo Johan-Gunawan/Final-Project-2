@@ -31,7 +31,14 @@ class CommentController{
             });
 
         } catch (error) {
-            res.status(500).send(response(error,error.message));
+            if(error.name == 'SequelizeUniqueConstraintError'){
+                res.status(400).send(response({},error.message));
+            }
+            else if(error.name == 'SequelizeValidationError') {
+                res.status(400).send(response({},error['errors'][0].message));
+            }else{
+                res.status(500).send(response(error,error.message));
+            }
         }
     }
 
@@ -68,7 +75,14 @@ class CommentController{
                 comment: newComment
             });
         } catch (error) {
-            res.status(500).send(response(error,error.message));
+            if(error.name == 'SequelizeUniqueConstraintError'){
+                res.status(400).send(response({},error.message));
+            }
+            else if(error.name == 'SequelizeValidationError') {
+                res.status(400).send(response({},error['errors'][0].message));
+            }else{
+                res.status(500).send(response(error,error.message));
+            }
         }
     }
 
@@ -96,7 +110,14 @@ class CommentController{
                 comments: comments
             });
         } catch (error) {
-            res.status(500).send(response(error,error.message));
+            if(error.name == 'SequelizeUniqueConstraintError'){
+                res.status(400).send(response({},error.message));
+            }
+            else if(error.name == 'SequelizeValidationError') {
+                res.status(400).send(response({},error['errors'][0].message));
+            }else{
+                res.status(500).send(response(error,error.message));
+            }
         }
     }
 
@@ -125,7 +146,14 @@ class CommentController{
             res.send({ msg: "Your comment has been successfully deleted"});
             
         } catch (error) {
-            res.status(500).send(response(error,error.message));
+            if(error.name == 'SequelizeUniqueConstraintError'){
+                res.status(400).send(response({},error.message));
+            }
+            else if(error.name == 'SequelizeValidationError') {
+                res.status(400).send(response({},error['errors'][0].message));
+            }else{
+                res.status(500).send(response(error,error.message));
+            }
         }
     }
 }
