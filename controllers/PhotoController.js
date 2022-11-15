@@ -138,7 +138,7 @@ class PhotoController{
                 }
             });
 
-            res.send({ msg: "Your photo has been successfully userId" });
+            res.send({ msg: "Your photo has been successfully" });
 
         } catch (error) {
             if(error.name == 'SequelizeUniqueConstraintError'){
